@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            background-color: #f4f4f9;
+            background-image: url('https://i.pinimg.com/736x/28/44/de/2844de65b647f6c5e27f6bc66e3e220c.jpg');
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .info {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>City Information</h2>
+    <div class="container">
+        <input type="text" id="cityName" placeholder="Enter city name">
+        <button onclick="getCityInfo()">Get Info</button>
+        <div class="info" id="cityInfo"></div>
+    </div>
+
+    <script>
+        const cityData = {
+            "New York": "A major city in the USA, known for Times Square and Broadway.",
+            "Paris": "The capital of France, famous for the Eiffel Tower and fashion.",
+            "Tokyo": "The capital of Japan, known for technology and cherry blossoms.",
+            "London": "The capital of the UK, home to Big Ben and Buckingham Palace."
+        };
+
+        function getCityInfo() {
+            const input = document.getElementById("cityName").value.trim();
+            const info = document.getElementById("cityInfo");
+            if (cityData[input]) {
+                info.innerHTML = `<p>${cityData[input]}</p>`;
+            } else {
+                info.innerHTML = `<p>City not found. Please try another city.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
