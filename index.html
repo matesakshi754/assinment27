@@ -3,70 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>City Info</title>
+    <title>City Information App</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            margin: 20px;
-            background-color: #f4f4f9;
-            background-image: url('https://i.pinimg.com/736x/28/44/de/2844de65b647f6c5e27f6bc66e3e220c.jpg');
+            height: 100vh;
         }
+
         .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
             text-align: center;
-            width: 300px;
         }
-        input, button {
-            margin: 10px 0;
-            padding: 10px;
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"] {
             width: 100%;
+            padding: 10px;
+            font-size: 16px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 4px;
         }
+
         button {
-            background-color: #007BFF;
-            color: white;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
             cursor: pointer;
+            margin-top: 10px;
         }
+
         button:hover {
-            background-color: #0056b3;
+            background-color: #45a049;
         }
-        .info {
-            margin-top: 15px;
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #eaf1f1;
+            border-radius: 4px;
+            display: none;
+            color: #333;
+        }
+
+        .result h3 {
+            margin-bottom: 10px;
+        }
+
+        .result p {
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-    <h2>City Information</h2>
+
     <div class="container">
-        <input type="text" id="cityName" placeholder="Enter city name">
-        <button onclick="getCityInfo()">Get Info</button>
-        <div class="info" id="cityInfo"></div>
+        <h1>City Information</h1>
+        <div class="form-group">
+            <label for="cityName">Enter City Name:</label>
+            <input type="text" id="cityName" placeholder="Enter city here">
+        </div>
+        <button onclick="getCityInfo()">Get City Info</button>
+
+        <div class="result" id="result">
+            <h3>City Information</h3>
+            <p><strong>City:</strong> <span id="city"></span></p>
+            <p><strong>Country:</strong> <span id="country"></span></p>
+            <p><strong>Population:</strong> <span id="population"></span></p>
+            <p><strong>Timezone:</strong> <span id="timezone"></span></p>
+        </div>
     </div>
 
     <script>
-        const cityData = {
-            "New York": "A major city in the USA, known for Times Square and Broadway.",
-            "Paris": "The capital of France, famous for the Eiffel Tower and fashion.",
-            "Tokyo": "The capital of Japan, known for technology and cherry blossoms.",
-            "London": "The capital of the UK, home to Big Ben and Buckingham Palace."
-        };
-
         function getCityInfo() {
-            const input = document.getElementById("cityName").value.trim();
-            const info = document.getElementById("cityInfo");
-            if (cityData[input]) {
-                info.innerHTML = `<p>${cityData[input]}</p>`;
+            const city = document.getElementById("cityName").value.trim();
+            const resultContainer = document.getElementById("result");
+            
+            
+            const cityData = {
+                "Mumbai": {
+                    country: "India",
+                    population: "18,978,000",
+                    // timezone: "EST (UTC -5)"
+                },
+                "Delhi": {
+                    country: "India",
+                    population: "14,787,000",
+                    // timezone: "JST (UTC +9)"
+                },
+                "Calcutta": {
+                    country: "India",
+                    population: "13,789.000",
+                    // timezone: "GMT (UTC +0)"
+                },
+                "Paris": {
+                    country: "France",
+                    population: "2.1 million",
+                    // timezone: "CET (UTC +1)"
+                },
+                "Karachi": {
+                    country: "Pakistan",
+                    population: "12,130,000",
+                    // timezone: "AEDT (UTC +11)"
+                }
+            };
+
+            // Clear previous results
+            resultContainer.style.display = 'none';
+            
+            if (city === "") {
+                alert("Please enter a city name.");
+                return;
+            }
+
+            const cityInfo = cityData[city];
+
+            if (cityInfo) {
+                // Display city info
+                document.getElementById("city").textContent = city;
+                document.getElementById("country").textContent = cityInfo.country;
+                document.getElementById("population").textContent = cityInfo.population;
+                document.getElementById("timezone").textContent = cityInfo.timezone;
+
+                resultContainer.style.display = 'block';
             } else {
-                info.innerHTML = `<p>City not found. Please try another city.</p>`;
+                alert("City information not available.");
             }
         }
     </script>
+
 </body>
 </html>
